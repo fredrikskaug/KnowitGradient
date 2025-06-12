@@ -24,15 +24,13 @@
       transition: color 0.25s linear;
     "
   >
-    <span id="animated-hero__status">Loading …</span>
-
-    <span id="animated-hero__status-full">
+    <span id="animated-hero__status">
       Design formet av himmelen over
       <span
         class="status-cluster"
         style="display: inline-flex; align-items: baseline; gap: 0.35em"
       >
-          Knowit, <span id="animated-hero__city">•</span>
+        Knowit, <span id="animated-hero__city">•</span>
 
         <button
           id="animated-hero__rnd"
@@ -60,7 +58,6 @@
               d="M7.87226 2.60254L5.98456 7.7373L5.04608 7.39258L6.44257 3.59082C5.59154 3.71764 4.77195 4.01502 4.03534 4.46875L3.8371 4.5957C2.85307 5.25325 2.07198 6.171 1.58026 7.24414L1.48554 7.45996C1.00255 8.62603 0.877087 9.90957 1.12323 11.1475L1.17304 11.3789C1.44599 12.5272 2.03258 13.5792 2.86933 14.416L3.03925 14.5801C3.90403 15.3831 4.97646 15.9311 6.1369 16.1621L6.3703 16.2041C7.53554 16.3913 8.73218 16.2526 9.82538 15.7998L10.0412 15.7051C11.1144 15.2134 12.0321 14.4323 12.6896 13.4482L12.8166 13.25C13.4357 12.2449 13.7648 11.0859 13.7648 9.90234H14.7648C14.7648 11.2713 14.3842 12.6119 13.6682 13.7744L13.5207 14.0039C12.7602 15.142 11.6994 16.0455 10.4582 16.6143L10.2072 16.7236C8.94267 17.2473 7.55895 17.408 6.21112 17.1914L5.94257 17.1436C4.60016 16.8765 3.35996 16.2414 2.35956 15.3125L2.1623 15.123C1.19449 14.1552 0.516127 12.9385 0.200381 11.6104L0.141787 11.3428C-0.142932 9.91105 0.00319747 8.42681 0.561709 7.07812L0.671084 6.82715C1.23985 5.586 2.14331 4.52515 3.28144 3.76465L3.51093 3.61719C4.11638 3.24426 4.77047 2.9629 5.45136 2.77832L2.39276 1.6543 2.73749 0.714844 7.87226 2.60254Z"
               style="
                 fill: currentColor;
-                stroke: currentColor;
                 transition: fill 0.25s linear, stroke 0.25s linear;
               "
             ></path>
@@ -87,10 +84,7 @@
       transition: color 0.25s linear;
     "
   >
-    <span
-      class="met-group"
-      style="display: flex; align-items: center; margin-right: 19px"
-    >
+    <div class="met-group" style="display: flex; align-items: center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="23"
@@ -103,17 +97,20 @@
           d="M18.296 7.013C18.4372 5.61392 18.0324 4.21484 17.1609 3.09201C16.2894 1.96918 15.0157 1.20567 13.5919 0.951853C12.1675 0.697521 10.6975 0.972242 9.47212 1.72097C8.24675 2.4702 7.3558 3.63839 6.97569 4.99466C6.26273 4.89782 5.53663 4.9447 4.84309 5.13227C4.14955 5.31932 3.50275 5.64297 2.94361 6.08333C2.38448 6.5237 1.92455 7.07058 1.59222 7.69087C1.25988 8.31115 1.06251 8.99056 1.01263 9.6878C0.962758 10.385 1.06091 11.0849 1.30084 11.7439C1.54129 12.4029 1.91878 13.0063 2.40966 13.5181C2.90055 14.0293 3.49435 14.437 4.15482 14.7158C4.81476 14.9946 5.52719 15.1389 6.24698 15.1394H17.7972C18.8682 15.1399 19.8994 14.7433 20.679 14.0303C21.4592 13.3178 21.9291 12.3422 21.9926 11.3045C22.0561 10.2663 21.7091 9.24388 21.0219 8.44623C20.3346 7.64858 19.3597 7.13583 18.296 7.013Z"
           stroke="currentColor"
           stroke-width="1.26004"
-          style="
-            fill: currentColor;
-            stroke: currentColor;
-            transition: fill 0.25s linear, stroke 0.25s linear;
-          "
+          style="stroke: currentColor; transition: stroke 0.25s linear"
         ></path>
       </svg>
-      <span id="animated-hero__temp" style="margin-left: 6px">•</span>
-    </span>
-    <span id="animated-hero__wind" style="margin-right: 19px">•</span>
-    <span id="animated-hero__time">•</span>
+      <div id="animated-hero__weather" style="margin-left: 6px">
+        <div
+          id="animated-hero__weather-track"
+          style="display: flex; align-items: center; gap: 19px"
+        >
+          <span id="animated-hero__temp">•</span>
+          <span id="animated-hero__wind">•</span>
+          <span id="animated-hero__time">•</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -808,7 +805,6 @@
         MAX_GAPS = MAX_STOPS - 1;
 
       const status = document.getElementById("animated-hero__status");
-      const statusFull = document.getElementById("animated-hero__status-full");
       const cityEl = document.getElementById("animated-hero__city");
       const tempEl = document.getElementById("animated-hero__temp");
       const windEl = document.getElementById("animated-hero__wind");
@@ -817,15 +813,21 @@
       const rndBtn = document.getElementById("animated-hero__rnd");
       const rndSvg = rndBtn.querySelector("svg");
       const met = document.getElementById("animated-hero__met");
+      const weather = document.getElementById("animated-hero__weather");
+      const track = document.getElementById("animated-hero__weather-track");
 
       const canv = document.getElementById("animated-hero__canvas");
       const gl = canv.getContext("webgl");
+
+      let tickId = null;
 
       const deskCSS = {
         footer: footer.style.cssText,
         rndBtn: rndBtn.style.cssText,
         rndSvg: rndSvg.style.cssText,
         met: met.style.cssText,
+        weather: weather.style.cssText,
+        track: track.style.cssText,
       };
 
       function resize() {
@@ -1003,8 +1005,9 @@ void main(){vec2 uv=vUv;float t=iTime*uTimeScale;float base=snoise(vec3(uv*0.8*u
           rndBtn.style.cssText = deskCSS.rndBtn;
           rndSvg.style.cssText = deskCSS.rndSvg;
           met.style.cssText = deskCSS.met;
-          windEl.style.display = "";
-          timeEl.style.display = "";
+          weather.style.cssText = deskCSS.weather;
+          track.style.cssText = deskCSS.track;
+          stopTicker();
         }
 
         function mobile() {
@@ -1021,11 +1024,51 @@ void main(){vec2 uv=vUv;float t=iTime*uTimeScale;float base=snoise(vec3(uv*0.8*u
             left:20px; right:auto; bottom:30px;
             font-size:16px; line-height:25px;`;
 
-          windEl.style.display = "none";
-          timeEl.style.display = "none";
+          weather.style.cssText = `
+            ${deskCSS.weather}
+            overflow:hidden;
+            height:${track.firstElementChild.offsetHeight}px;`;
+
+          track.style.cssText = `
+            display:flex;
+            flex-direction:column;
+            gap:6px;
+            will-change:transform;
+            transform:translateY(0);`;
+          startTicker();
         }
 
         (window.innerWidth <= MOBILE_MAX ? mobile : desktop)();
+      }
+
+      function startTicker() {
+        if (tickId) return;
+
+        tickId = setInterval(() => {
+          track.style.transition = "transform .35s ease-out";
+          track.style.transform = `translateY(-${track.firstElementChild.offsetHeight}px)`;
+
+          track.addEventListener(
+            "transitionend",
+            function f() {
+              track.removeEventListener("transitionend", f);
+
+              track.appendChild(track.firstElementChild);
+
+              track.style.transition = "none";
+              track.style.transform = "translateY(0)";
+              void track.offsetHeight;
+            },
+            { once: true }
+          );
+        }, 5000);
+      }
+
+      function stopTicker() {
+        clearInterval(tickId);
+        tickId = null;
+        track.style.transition = "none";
+        track.style.transform = "translateY(0)";
       }
 
       const offices = [
@@ -1168,15 +1211,8 @@ void main(){vec2 uv=vUv;float t=iTime*uTimeScale;float base=snoise(vec3(uv*0.8*u
       }
       async function load() {
         const office = pickOffice();
-        status.style.display = "";
-        statusFull.style.display = "none";
-        status.textContent = `Henter vær … ${office.city}`;
         try {
           const wx = await fetchForecast(office.lat, office.lon);
-
-          // Hide loading status and show full status with underline
-          status.style.display = "none";
-          statusFull.style.display = "";
           cityEl.textContent = office.city;
 
           const timeStr = new Date().toLocaleTimeString("sv-SE", {
@@ -1203,9 +1239,9 @@ void main(){vec2 uv=vUv;float t=iTime*uTimeScale;float base=snoise(vec3(uv*0.8*u
           target.stopCount = pal.colors.length;
           target.cloud = wx.clouds;
           target.wind = clamp(wx.wind / 25, 0.2, 1);
+
+          sampleInk(pal);
         } catch (e) {
-          status.style.display = "";
-          statusFull.style.display = "none";
           status.textContent = "Error: " + e.message;
         }
       }
@@ -1223,6 +1259,8 @@ void main(){vec2 uv=vUv;float t=iTime*uTimeScale;float base=snoise(vec3(uv*0.8*u
         target.stopCount = pal.colors.length;
         target.cloud = 0;
         target.wind = 0.2;
+
+        sampleInk(pal);
       })();
       document.getElementById("animated-hero__rnd").onclick = load;
       load();
@@ -1254,14 +1292,11 @@ void main(){vec2 uv=vUv;float t=iTime*uTimeScale;float base=snoise(vec3(uv*0.8*u
         gl.uniform1f(uni.windOff, windOffset);
 
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-        sampleInk();
         requestAnimationFrame(step);
       }
       uploadColors();
       uploadStops();
       uploadStatics();
-
-      const autoInkEls = Array.from(document.querySelectorAll(".auto-ink"));
 
       function luminance(r, g, b) {
         // WCAG relative luminance
@@ -1272,21 +1307,25 @@ void main(){vec2 uv=vUv;float t=iTime*uTimeScale;float base=snoise(vec3(uv*0.8*u
       }
 
       const px = new Uint8Array(4);
-      function sampleInk() {
-        const dpr = devicePixelRatio || 1;
-        const canvasRect = canv.getBoundingClientRect();
+      function sampleInk(pal) {
+        const autoInkEls = Array.from(document.querySelectorAll(".auto-ink"));
+        // use the first two colours
+        const [c0, c1] = pal.colors;
 
-        for (const el of autoInkEls) {
-          const rect = el.getBoundingClientRect();
-          const cx = rect.left + rect.width * 0.5;
-          const cy = rect.top + rect.height * 0.5;
+        // average their RGB values
+        const rgb = [c0, c1]
+          .map(hexToRgbNorm)
+          .reduce(
+            (acc, c) => ({ r: acc.r + c.r, g: acc.g + c.g, b: acc.b + c.b }),
+            { r: 0, g: 0, b: 0 }
+          );
+        rgb.r = (rgb.r / 2) * 255;
+        rgb.g = (rgb.g / 2) * 255;
+        rgb.b = (rgb.b / 2) * 255;
 
-          const x = Math.round((cx - canvasRect.left) * dpr);
-          const y = Math.round((canvasRect.bottom - cy) * dpr);
+        const col = bestInk(rgb.r, rgb.g, rgb.b);
 
-          gl.readPixels(x, y, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px);
-          el.style.color = bestInk(px[0], px[1], px[2]);
-        }
+        autoInkEls.forEach((el) => (el.style.color = col));
       }
 
       requestAnimationFrame(step);
