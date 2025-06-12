@@ -1243,7 +1243,7 @@ void main(){vec2 uv=vUv;float t=iTime*uTimeScale;float base=snoise(vec3(uv*0.8*u
           target.stops = Float32Array.from(st);
           target.stopCount = pal.colors.length;
           target.cloud = wx.clouds;
-          target.wind = clamp(wx.wind / 25, 0.2, 1);
+          target.wind = clamp(wx.wind / 16, 0.02, 1.);
 
           sampleInk(pal);
         } catch (e) {
