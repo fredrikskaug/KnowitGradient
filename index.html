@@ -821,6 +821,9 @@
 
       let tickId = null;
 
+      let lowerContrast = "#fff";
+      let upperContrast = "#fff";
+
       const deskCSS = {
         footer: footer.style.cssText,
         rndBtn: rndBtn.style.cssText,
@@ -1008,6 +1011,7 @@ void main(){vec2 uv=vUv;float t=iTime*uTimeScale;float base=snoise(vec3(uv*0.8*u
           weather.style.cssText = deskCSS.weather;
           track.style.cssText = deskCSS.track;
           stopTicker();
+          applyInk();
         }
 
         function mobile() {
@@ -1036,6 +1040,7 @@ void main(){vec2 uv=vUv;float t=iTime*uTimeScale;float base=snoise(vec3(uv*0.8*u
             will-change:transform;
             transform:translateY(0);`;
           startTicker();
+          applyInk(true);
         }
 
         (window.innerWidth <= MOBILE_MAX ? mobile : desktop)();
@@ -1306,26 +1311,35 @@ void main(){vec2 uv=vUv;float t=iTime*uTimeScale;float base=snoise(vec3(uv*0.8*u
         return luminance(r, g, b) > 0.53 ? "#000" : "#fff";
       }
 
-      const px = new Uint8Array(4);
-      function sampleInk(pal) {
-        const autoInkEls = Array.from(document.querySelectorAll(".auto-ink"));
-        // use the first two colours
-        const [c0, c1] = pal.colors;
-
-        // average their RGB values
-        const rgb = [c0, c1]
+      function contrastFor(hex1, hex2) {
+        const avg = [hex1, hex2]
           .map(hexToRgbNorm)
-          .reduce(
-            (acc, c) => ({ r: acc.r + c.r, g: acc.g + c.g, b: acc.b + c.b }),
-            { r: 0, g: 0, b: 0 }
-          );
-        rgb.r = (rgb.r / 2) * 255;
-        rgb.g = (rgb.g / 2) * 255;
-        rgb.b = (rgb.b / 2) * 255;
+          .reduce((a, c) => ({ r: a.r + c.r, g: a.g + c.g, b: a.b + c.b }), {
+            r: 0,
+            g: 0,
+            b: 0,
+          });
 
-        const col = bestInk(rgb.r, rgb.g, rgb.b);
+        return bestInk(avg.r * 127.5, avg.g * 127.5, avg.b * 127.5);
+      }
 
-        autoInkEls.forEach((el) => (el.style.color = col));
+      function sampleInk(pal) {
+        lowerContrast = contrastFor(pal.colors[0], pal.colors[1]);
+        upperContrast = contrastFor(
+          pal.colors[pal.colors.length - 2],
+          pal.colors[pal.colors.length - 1]
+        );
+        applyInk();
+      }
+
+      function applyInk(mobile = false) {
+        if (mobile) {
+          footer.style.color = upperContrast;
+          met.style.color = lowerContrast;
+        } else {
+          footer.style.color = lowerContrast;
+          met.style.color = lowerContrast;
+        }
       }
 
       requestAnimationFrame(step);
